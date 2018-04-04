@@ -9,4 +9,3 @@ export const fetchQuestions = () => ((dispatch) => {
             dispatch({ type: FETCH_QUESTIONS_SUCCESS, payload: responce.data.results }))
         );
 });
-
