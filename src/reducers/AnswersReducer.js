@@ -3,13 +3,13 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    answers: []
+    answersArray: []
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ANSWER_QUESTION:
-            return { ...state, answers: action.payload };
+            return { ...state, answersArray: action.payload };
         default:
             return state;
     }

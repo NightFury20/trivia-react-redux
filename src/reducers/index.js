@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import QuestionsReducer from './QuestionsReducer';
+import MainReducer from './MainReducer';
 
 export default combineReducers({
-  questions: QuestionsReducer
+  redux:  MainReducer
 });

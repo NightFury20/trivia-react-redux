@@ -1,41 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchQuestions } from '../actions';
-
 class PlayArea extends Component {
-    componentWillMount() {
-        this.props.fetchQuestions();
+    renderAnswerBtns() {
+        const { currentQuestion } = this.props;
+        let answers = currentQuestion.incorrect_answers;
+        answers.push(currentQuestion.correct_answer);
+
+        answers = shuffle(answers);
+
+        return answers.map(i => (
+            <div key={i} className='row justify-content-center pt-3'>
+                <input type='button' className='btn btn-lg btn-default' value={i} />
+            </div>
+        ));        
     }
 
     render() {
-        const { questions } = this.props;
-        console.log(questions);
-
-        if (questions.length === 0) {
-            return (
-                <div className='container mt-5'>
-                    <div className='row justify-content-center'>
-                        <h2>Loading...</h2>
-                    </div>
-                </div>
-            );
-        }
+        const { currentQuestion } = this.props;
+        console.log(this.props);
 
         return (
             <div className='container mt-5'>
                 <div className='row justify-content-center'>
-                    <button
-                        className='btn btn-lg btn-primary'
-                    >
-                        Start
-                    </button>
+                    <h2>{currentQuestion.question}</h2>
                 </div>
+                {this.renderAnswerBtns()}
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({ questions: state.questions.questions });
+const mapStateToProps = state => ({
+    questionsArray: state.redux.questionsArray,
+    currentQuestion: state.redux.currentQuestion
+});
 
-export default connect(mapStateToProps, { fetchQuestions })(PlayArea);
+export default connect(mapStateToProps)(PlayArea);
+
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}

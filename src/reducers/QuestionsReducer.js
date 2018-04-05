@@ -3,13 +3,14 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    questions: []
+    questionsArray: [],
+    currentQuestion: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_QUESTIONS_SUCCESS:
-            return { ...state, questions: action.payload };
+            return { ...state, questionsArray: action.payload, currentQuestion: action.payload[0] };
         default:
             return state;
     }
